@@ -1,0 +1,143 @@
+Minor Project 2
+
+Desktop application
+ 
+-
+ 
+10 points
+
+Instructions
+
+All students must complete the requirements below
+
+1.
+ 
+Create a new Windows desktop application
+
+a.
+ 
+Windows Forms, WPF, or WinUI 3
+
+2.
+ 
+Create a database and data layer
+
+a.
+ 
+New database with at least 3 tables
+
+b.
+ 
+Separate data layer (class, project, solution)
+
+3.
+ 
+Create a full
+-
+featured application
+
+a.
+ 
+Full CRUD operations on at least 3 tables
+
+i.
+ 
+Create, read, update, delete on all 3
+
+ii.
+ 
+For 1 table, you must implement searching (allowing the user to get
+records not just by ID but by at least 2 other text fields). I recommend
+using the LIKE SQL syntax for ADONET or Contains/StartsWith/EndsWith
+syntax for EF
+
+b.
+ 
+Settings page for user settings (theme or language, for example)
+
+c.
+ 
+Administration page for altering admin
+-
+only records
+
+i.
+ 
+For example, select one table to be limited to alteration by admins
+
+d.
+ 
+No security necessary (username or password)
+
+e.
+ 
+Create the views however you think is best
+
+4.
+ 
+Launch the app on your computer (or a lab machine)
+
+a.
+ 
+Take screenshots of search, insert, update, delete
+
+b.
+ 
+Put those screenshots into one document (PDF or DOCX)
+
+5.
+ 
+Upload your code to a GitHub repo (new or same as last time)
+
+Deliverables
+
+1.
+ 
+Codebase
+
+a.
+ 
+All code required to build and launch your project
+
+b.
+ 
+You may exclude the "bin", "obj", "node_modules", or other auxiliary folders in
+order to decrease the size of the repo, but ensure (test it yourself) that the
+remnants of the project are able to assemble themselves and download
+dependencies
+
+2.
+ 
+Documentation
+
+a.
+ 
+PDF or DOCX only (no Pages)
+
+b.
+ 
+Include the screenshots mentioned above
+
+c.
+ 
+Answer the following questions:
+
+i.
+ 
+Describe a challenge you overcame in this project
+ii.
+ 
+Describe a technique you learned in this project
+
+iii.
+ 
+What more would you want to refine in your project, to make it ready to
+sell, ship, and deploy?
+
+iv.
+ 
+Which technology did you choose (WPF, WinForms, WinUI) and why?
+
+3.
+ 
+Submit the link to the repo in Blackboard and attach the document in Blackboard

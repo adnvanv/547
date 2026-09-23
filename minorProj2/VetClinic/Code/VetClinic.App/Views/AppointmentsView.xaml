@@ -1,0 +1,69 @@
+<UserControl x:Class="VetClinic.App.Views.AppointmentsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Loaded="OnLoaded">
+    <Grid Margin="8,16,8,8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="24" />
+            <ColumnDefinition Width="360" />
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Grid.Column="0">
+            <TextBlock DockPanel.Dock="Top" Text="Appointments" Style="{StaticResource SectionHeader}" />
+            <TextBlock x:Name="ResultCount" DockPanel.Dock="Bottom" Margin="0,6,0,0" Style="{StaticResource Hint}" />
+            <DataGrid x:Name="Grid" SelectionChanged="Grid_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding AppointmentId}" Width="50" />
+                    <DataGridTextColumn Header="When" Binding="{Binding ScheduledAt, StringFormat=g}" Width="1.9*" MinWidth="170" />
+                    <DataGridTextColumn Header="Pet" Binding="{Binding PetName}" Width="*" />
+                    <DataGridTextColumn Header="Owner" Binding="{Binding OwnerName}" Width="1.5*" />
+                    <DataGridTextColumn Header="Veterinarian" Binding="{Binding VeterinarianName}" Width="1.5*" />
+                    <DataGridTextColumn Header="Reason" Binding="{Binding Reason}" Width="2*" />
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*" />
+                    <DataGridTextColumn Header="Cost" Binding="{Binding Cost, StringFormat=C}" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+
+        <StackPanel Grid.Column="2">
+            <TextBlock x:Name="FormTitle" Text="New appointment" Style="{StaticResource SectionHeader}" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition /><RowDefinition /><RowDefinition /><RowDefinition />
+                    <RowDefinition /><RowDefinition /><RowDefinition /><RowDefinition />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="ID" Style="{StaticResource FormLabel}" />
+                <TextBox Grid.Row="0" Grid.Column="1" x:Name="IdBox" IsReadOnly="True" Focusable="False" />
+                <TextBlock Grid.Row="1" Text="Pet *" Style="{StaticResource FormLabel}" />
+                <ComboBox Grid.Row="1" Grid.Column="1" x:Name="PetBox" SelectedValuePath="PetId" />
+                <TextBlock Grid.Row="2" Text="Veterinarian *" Style="{StaticResource FormLabel}" />
+                <ComboBox Grid.Row="2" Grid.Column="1" x:Name="VetBox" SelectedValuePath="VeterinarianId" />
+                <TextBlock Grid.Row="3" Text="Date *" Style="{StaticResource FormLabel}" />
+                <DatePicker Grid.Row="3" Grid.Column="1" x:Name="DateBox" />
+                <TextBlock Grid.Row="4" Text="Time *" Style="{StaticResource FormLabel}" />
+                <TextBox Grid.Row="4" Grid.Column="1" x:Name="TimeBox" ToolTip="e.g. 9:30 AM or 14:00" />
+                <TextBlock Grid.Row="5" Text="Reason *" Style="{StaticResource FormLabel}" />
+                <TextBox Grid.Row="5" Grid.Column="1" x:Name="ReasonBox" MaxLength="200" />
+                <TextBlock Grid.Row="6" Text="Status" Style="{StaticResource FormLabel}" />
+                <ComboBox Grid.Row="6" Grid.Column="1" x:Name="StatusBox" />
+                <TextBlock Grid.Row="7" Text="Cost ($)" Style="{StaticResource FormLabel}" />
+                <TextBox Grid.Row="7" Grid.Column="1" x:Name="CostBox" />
+            </Grid>
+
+            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                <Button Content="New" Click="New_Click" />
+                <Button Content="Save" Click="Save_Click" Style="{DynamicResource AccentButtonStyle}"
+                        Margin="0,0,8,0" MinWidth="90" />
+                <Button x:Name="DeleteButton" Content="Delete" Click="Delete_Click" />
+            </StackPanel>
+            <TextBlock Margin="0,16,0,0" Style="{StaticResource Hint}"
+                       Text="Only active veterinarians can be booked. Veterinarians are managed on the Administration tab." />
+        </StackPanel>
+    </Grid>
+</UserControl>

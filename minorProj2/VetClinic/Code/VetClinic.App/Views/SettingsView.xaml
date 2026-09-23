@@ -1,0 +1,44 @@
+<UserControl x:Class="VetClinic.App.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Loaded="OnLoaded">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="8,16,8,8" MaxWidth="640" HorizontalAlignment="Left">
+            <TextBlock Text="Settings" Style="{StaticResource SectionHeader}" />
+
+            <TextBlock Text="Appearance" FontWeight="SemiBold" Margin="0,4,0,6" />
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                <TextBlock Text="Theme" Width="110" VerticalAlignment="Center" />
+                <RadioButton x:Name="ThemeSystem" GroupName="Theme" Content="Use Windows setting" Margin="0,0,16,0" />
+                <RadioButton x:Name="ThemeLight" GroupName="Theme" Content="Light" Margin="0,0,16,0" />
+                <RadioButton x:Name="ThemeDark" GroupName="Theme" Content="Dark" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                <TextBlock Text="Text size" Width="110" VerticalAlignment="Center" />
+                <Slider x:Name="FontSizeSlider" Width="240" Minimum="12" Maximum="20" TickFrequency="1"
+                        IsSnapToTickEnabled="True" VerticalAlignment="Center" />
+                <TextBlock Margin="12,0,0,0" VerticalAlignment="Center"
+                           Text="{Binding Value, ElementName=FontSizeSlider, StringFormat={}{0:0} pt}" />
+            </StackPanel>
+
+            <TextBlock Text="Behavior" FontWeight="SemiBold" Margin="0,4,0,6" />
+            <CheckBox x:Name="ConfirmDeletesBox" Content="Ask before deleting records" Margin="0,0,0,8" />
+            <CheckBox x:Name="AdminModeBox" Content="Administrator mode (unlocks the Administration tab)" Margin="0,0,0,16" />
+
+            <TextBlock Text="Database" FontWeight="SemiBold" Margin="0,4,0,6" />
+            <TextBlock Text="SQL Server connection string" Style="{StaticResource Hint}" Margin="0,0,0,4" />
+            <TextBox x:Name="ConnectionBox" TextWrapping="Wrap" />
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,24">
+                <Button Content="Test connection" Click="TestConnection_Click" />
+                <Button Content="Use default" Click="DefaultConnection_Click" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Save settings" Click="Save_Click" Style="{DynamicResource AccentButtonStyle}"
+                        Margin="0,0,8,0" MinWidth="90" />
+                <Button Content="Undo changes" Click="Undo_Click" />
+            </StackPanel>
+            <TextBlock x:Name="SavedNote" Margin="0,12,0,0" Style="{StaticResource Hint}" />
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

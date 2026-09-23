@@ -1,0 +1,37 @@
+<Window x:Class="VetClinic.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:VetClinic.App.Views"
+        Title="Vet Clinic Manager" Height="720" Width="1200" MinHeight="560" MinWidth="960"
+        WindowStartupLocation="CenterScreen">
+    <DockPanel>
+        <Border DockPanel.Dock="Top" Padding="20,14,20,6">
+            <StackPanel>
+                <TextBlock Text="Vet Clinic Manager" FontSize="26" FontWeight="Bold" />
+                <TextBlock Text="Owners, pets and appointments for the clinic" Style="{StaticResource Hint}" />
+            </StackPanel>
+        </Border>
+
+        <Border DockPanel.Dock="Bottom" Padding="20,6">
+            <TextBlock x:Name="StatusText" Style="{StaticResource Hint}" Text="Ready" />
+        </Border>
+
+        <TabControl x:Name="Tabs" Margin="12,0">
+            <TabItem Header="Owners">
+                <views:OwnersView />
+            </TabItem>
+            <TabItem Header="Pets">
+                <views:PetsView />
+            </TabItem>
+            <TabItem Header="Appointments">
+                <views:AppointmentsView />
+            </TabItem>
+            <TabItem Header="Administration">
+                <views:AdminView />
+            </TabItem>
+            <TabItem Header="Settings">
+                <views:SettingsView />
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>
