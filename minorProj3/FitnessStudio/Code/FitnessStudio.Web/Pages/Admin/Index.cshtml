@@ -1,0 +1,56 @@
+@page
+@model FitnessStudio.Web.Pages.Admin.IndexModel
+@{
+    ViewData["Title"] = "Administration";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <h1 class="mb-0">Administration: membership plans</h1>
+    <a asp-page="Edit" class="btn btn-@S.Accent">+ Add plan</a>
+</div>
+<p class="text-body-secondary">
+    Membership plans can only be changed here, in administrator mode. Inactive plans are hidden
+    from the member form but kept for members who are already on them.
+</p>
+
+<div class="table-responsive">
+    <table class="table table-hover align-middle">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Plan</th>
+                <th>Monthly price</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Members</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model.Plans)
+            {
+                <tr>
+                    <td>@p.PlanId</td>
+                    <td>@p.Name</td>
+                    <td>@p.MonthlyPrice.ToString("C")</td>
+                    <td>@p.Description</td>
+                    <td>
+                        @if (p.IsActive)
+                        {
+                            <span class="badge text-bg-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge text-bg-secondary">Inactive</span>
+                        }
+                    </td>
+                    <td>@p.Members.Count</td>
+                    <td class="actions">
+                        <a asp-page="Edit" asp-route-id="@p.PlanId" class="btn btn-sm btn-outline-secondary">Edit</a>
+                        <partial name="_DeleteButton" model="@(("Delete", p.PlanId))" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

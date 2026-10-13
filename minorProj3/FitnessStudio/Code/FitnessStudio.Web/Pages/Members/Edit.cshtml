@@ -1,0 +1,61 @@
+@page "{id:int?}"
+@model FitnessStudio.Web.Pages.Members.EditModel
+@{
+    ViewData["Title"] = Model.IsNew ? "Add member" : "Edit member";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post" class="card" style="max-width: 40rem">
+    <div class="card-body">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+        <input type="hidden" asp-for="Member.MemberId" />
+
+        @if (!Model.IsNew)
+        {
+            <p class="text-body-secondary">Member ID: @Model.Member.MemberId</p>
+        }
+
+        <div class="row g-3">
+            <div class="col-sm-6">
+                <label asp-for="Member.FirstName" class="form-label"></label>
+                <input asp-for="Member.FirstName" class="form-control" />
+                <span asp-validation-for="Member.FirstName" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6">
+                <label asp-for="Member.LastName" class="form-label"></label>
+                <input asp-for="Member.LastName" class="form-control" />
+                <span asp-validation-for="Member.LastName" class="text-danger"></span>
+            </div>
+            <div class="col-sm-7">
+                <label asp-for="Member.Email" class="form-label"></label>
+                <input asp-for="Member.Email" class="form-control" />
+                <span asp-validation-for="Member.Email" class="text-danger"></span>
+            </div>
+            <div class="col-sm-5">
+                <label asp-for="Member.Phone" class="form-label"></label>
+                <input asp-for="Member.Phone" class="form-control" />
+                <span asp-validation-for="Member.Phone" class="text-danger"></span>
+            </div>
+            <div class="col-sm-7">
+                <label asp-for="Member.PlanId" class="form-label"></label>
+                <select asp-for="Member.PlanId" asp-items="Model.PlanOptions" class="form-select"></select>
+                <span asp-validation-for="Member.PlanId" class="text-danger"></span>
+            </div>
+            <div class="col-sm-5">
+                <label asp-for="Member.JoinDate" class="form-label"></label>
+                <input asp-for="Member.JoinDate" class="form-control" />
+                <span asp-validation-for="Member.JoinDate" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-@S.Accent">@(Model.IsNew ? "Add member" : "Save changes")</button>
+            <a asp-page="Index" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

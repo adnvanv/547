@@ -1,0 +1,16 @@
+@page
+@{
+    ViewData["Title"] = "Administration";
+}
+
+<div class="card border-warning mx-auto mt-4" style="max-width: 36rem">
+    <div class="card-body text-center p-4">
+        <div class="display-5 mb-2">&#128274;</div>
+        <h1 class="h3">Administration is locked</h1>
+        <p class="text-body-secondary">
+            Membership plans can only be changed by an administrator.
+            Turn on <strong>Administrator mode</strong> on the Settings page to continue.
+        </p>
+        <a asp-page="/Settings" class="btn btn-@S.Accent">Go to Settings</a>
+    </div>
+</div>

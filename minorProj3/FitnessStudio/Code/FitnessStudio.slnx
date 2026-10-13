@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="FitnessStudio.Data/FitnessStudio.Data.csproj" />
+  <Project Path="FitnessStudio.Web/FitnessStudio.Web.csproj" />
+</Solution>

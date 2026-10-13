@@ -1,0 +1,66 @@
+@page "{id:int?}"
+@model FitnessStudio.Web.Pages.Instructors.EditModel
+@{
+    ViewData["Title"] = Model.IsNew ? "Add instructor" : "Edit instructor";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post" class="card" style="max-width: 40rem">
+    <div class="card-body">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+        <input type="hidden" asp-for="Instructor.InstructorId" />
+
+        @if (!Model.IsNew)
+        {
+            <p class="text-body-secondary">Instructor ID: @Model.Instructor.InstructorId</p>
+        }
+
+        <div class="row g-3">
+            <div class="col-sm-6">
+                <label asp-for="Instructor.FirstName" class="form-label"></label>
+                <input asp-for="Instructor.FirstName" class="form-control" />
+                <span asp-validation-for="Instructor.FirstName" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6">
+                <label asp-for="Instructor.LastName" class="form-label"></label>
+                <input asp-for="Instructor.LastName" class="form-control" />
+                <span asp-validation-for="Instructor.LastName" class="text-danger"></span>
+            </div>
+            <div class="col-12">
+                <label asp-for="Instructor.Email" class="form-label"></label>
+                <input asp-for="Instructor.Email" class="form-control" />
+                <span asp-validation-for="Instructor.Email" class="text-danger"></span>
+            </div>
+            <div class="col-sm-7">
+                <label asp-for="Instructor.Specialty" class="form-label"></label>
+                <input asp-for="Instructor.Specialty" class="form-control" list="specialties" />
+                <datalist id="specialties">
+                    <option value="Yoga"></option>
+                    <option value="HIIT"></option>
+                    <option value="Pilates"></option>
+                    <option value="Strength Training"></option>
+                    <option value="Spin"></option>
+                    <option value="Boxing"></option>
+                    <option value="Dance Cardio"></option>
+                    <option value="Mobility"></option>
+                </datalist>
+                <span asp-validation-for="Instructor.Specialty" class="text-danger"></span>
+            </div>
+            <div class="col-sm-5">
+                <label asp-for="Instructor.HireDate" class="form-label"></label>
+                <input asp-for="Instructor.HireDate" class="form-control" />
+                <span asp-validation-for="Instructor.HireDate" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-@S.Accent">@(Model.IsNew ? "Add instructor" : "Save changes")</button>
+            <a asp-page="Index" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

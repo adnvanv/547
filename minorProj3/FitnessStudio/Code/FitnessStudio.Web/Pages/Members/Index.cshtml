@@ -1,0 +1,89 @@
+@page
+@model FitnessStudio.Web.Pages.Members.IndexModel
+@{
+    ViewData["Title"] = "Members";
+    var fields = new SelectList(new[]
+    {
+        new { Value = MemberSearchField.Any, Text = "Any field (or member ID)" },
+        new { Value = MemberSearchField.FirstName, Text = "First name" },
+        new { Value = MemberSearchField.LastName, Text = "Last name" },
+        new { Value = MemberSearchField.Email, Text = "Email" },
+        new { Value = MemberSearchField.Phone, Text = "Phone" },
+    }, "Value", "Text");
+    var modes = new SelectList(new[]
+    {
+        new { Value = MatchMode.Contains, Text = "contains" },
+        new { Value = MatchMode.StartsWith, Text = "starts with" },
+        new { Value = MatchMode.EndsWith, Text = "ends with" },
+    }, "Value", "Text");
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="mb-0">Members</h1>
+    <a asp-page="Edit" class="btn btn-@S.Accent">+ Add member</a>
+</div>
+
+<form method="get" class="card card-body mb-3">
+    <div class="row g-2 align-items-end">
+        <div class="col-md-3">
+            <label asp-for="Field" class="form-label">Search in</label>
+            <select asp-for="Field" asp-items="fields" class="form-select"></select>
+        </div>
+        <div class="col-md-2">
+            <label asp-for="Match" class="form-label">Match</label>
+            <select asp-for="Match" asp-items="modes" class="form-select"></select>
+        </div>
+        <div class="col-md-4">
+            <label asp-for="Search" class="form-label">Search text</label>
+            <input asp-for="Search" class="form-control" placeholder="e.g. Johnson, olivia, 555-01" />
+        </div>
+        <div class="col-md-3 d-flex gap-2">
+            <button type="submit" class="btn btn-@S.Accent flex-fill">Search</button>
+            <a asp-page="Index" class="btn btn-outline-secondary flex-fill">Clear</a>
+        </div>
+    </div>
+</form>
+
+<p class="text-body-secondary">
+    @if (Model.IsSearching)
+    {
+        @:@Model.Results.Count member(s) found for "<strong>@Model.Search</strong>".
+    }
+    else
+    {
+        @:Showing all @Model.Results.Count members.
+    }
+</p>
+
+<div class="table-responsive">
+    <table class="table table-hover align-middle">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Plan</th>
+                <th>Joined</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var m in Model.Results)
+            {
+                <tr>
+                    <td>@m.MemberId</td>
+                    <td>@m.LastName, @m.FirstName</td>
+                    <td>@m.Email</td>
+                    <td>@m.Phone</td>
+                    <td>@m.Plan?.Name</td>
+                    <td>@S.FormatDate(m.JoinDate)</td>
+                    <td class="actions">
+                        <a asp-page="Edit" asp-route-id="@m.MemberId" class="btn btn-sm btn-outline-secondary">Edit</a>
+                        <partial name="_DeleteButton" model="@(("Delete", m.MemberId))" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,47 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+    var cards = new[]
+    {
+        ("Members", Model.MemberCount, "/Members/Index"),
+        ("Instructors", Model.InstructorCount, "/Instructors/Index"),
+        ("Weekly classes", Model.ClassCount, "/Classes/Index"),
+        ("Active plans", Model.PlanCount, "/Admin/Index"),
+    };
+}
+
+<h1 class="mb-1">Welcome to Fitness Studio</h1>
+<p class="text-body-secondary mb-4">Manage members, instructors and the weekly class schedule.</p>
+
+<div class="row g-3 mb-4">
+    @foreach (var (label, count, target) in cards)
+    {
+        <div class="col-6 col-lg-3">
+            <a asp-page="@target" class="card stat-card h-100 text-decoration-none">
+                <div class="card-body">
+                    <div class="text-body-secondary">@label</div>
+                    <div class="display-6 text-@S.Accent">@count</div>
+                </div>
+            </a>
+        </div>
+    }
+</div>
+
+<h2 class="h4">Today's classes (@Model.Today)</h2>
+@if (Model.TodaysClasses.Count == 0)
+{
+    <p class="text-body-secondary">No classes are scheduled today.</p>
+}
+else
+{
+    <ul class="list-group">
+        @foreach (var c in Model.TodaysClasses)
+        {
+            <li class="list-group-item d-flex justify-content-between">
+                <span><strong>@c.Title</strong> with @c.Instructor?.FullName &middot; @c.Room</span>
+                <span>@S.FormatTime(c.StartTime) &middot; @c.DurationMinutes min</span>
+            </li>
+        }
+    </ul>
+}

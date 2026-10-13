@@ -1,0 +1,73 @@
+@page "{id:int?}"
+@model FitnessStudio.Web.Pages.Classes.EditModel
+@{
+    ViewData["Title"] = Model.IsNew ? "Add class" : "Edit class";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post" class="card" style="max-width: 40rem">
+    <div class="card-body">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+        <input type="hidden" asp-for="FitnessClass.ClassId" />
+
+        @if (!Model.IsNew)
+        {
+            <p class="text-body-secondary">Class ID: @Model.FitnessClass.ClassId</p>
+        }
+
+        <div class="row g-3">
+            <div class="col-12">
+                <label asp-for="FitnessClass.Title" class="form-label"></label>
+                <input asp-for="FitnessClass.Title" class="form-control" />
+                <span asp-validation-for="FitnessClass.Title" class="text-danger"></span>
+            </div>
+            <div class="col-12">
+                <label asp-for="FitnessClass.InstructorId" class="form-label"></label>
+                <select asp-for="FitnessClass.InstructorId" asp-items="Model.InstructorOptions" class="form-select"></select>
+                <span asp-validation-for="FitnessClass.InstructorId" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6">
+                <label asp-for="FitnessClass.DayOfWeek" class="form-label"></label>
+                <select asp-for="FitnessClass.DayOfWeek" asp-items="@(new SelectList(FitnessClass.Days))" class="form-select"></select>
+                <span asp-validation-for="FitnessClass.DayOfWeek" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6">
+                <label asp-for="FitnessClass.StartTime" class="form-label"></label>
+                <input asp-for="FitnessClass.StartTime" class="form-control" />
+                <span asp-validation-for="FitnessClass.StartTime" class="text-danger"></span>
+            </div>
+            <div class="col-sm-4">
+                <label asp-for="FitnessClass.DurationMinutes" class="form-label"></label>
+                <input asp-for="FitnessClass.DurationMinutes" class="form-control" />
+                <span asp-validation-for="FitnessClass.DurationMinutes" class="text-danger"></span>
+            </div>
+            <div class="col-sm-4">
+                <label asp-for="FitnessClass.Capacity" class="form-label"></label>
+                <input asp-for="FitnessClass.Capacity" class="form-control" />
+                <span asp-validation-for="FitnessClass.Capacity" class="text-danger"></span>
+            </div>
+            <div class="col-sm-4">
+                <label asp-for="FitnessClass.Room" class="form-label"></label>
+                <input asp-for="FitnessClass.Room" class="form-control" list="rooms" />
+                <datalist id="rooms">
+                    <option value="Studio A"></option>
+                    <option value="Studio B"></option>
+                    <option value="Studio C"></option>
+                    <option value="Cycle Room"></option>
+                    <option value="Weight Room"></option>
+                </datalist>
+                <span asp-validation-for="FitnessClass.Room" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-@S.Accent">@(Model.IsNew ? "Add class" : "Save changes")</button>
+            <a asp-page="Index" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

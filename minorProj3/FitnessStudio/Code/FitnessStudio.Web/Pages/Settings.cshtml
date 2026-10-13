@@ -1,0 +1,60 @@
+@page
+@model SettingsModel
+@{
+    ViewData["Title"] = "Settings";
+}
+
+<h1>Settings</h1>
+<p class="text-body-secondary">These preferences are saved in this browser.</p>
+
+<form method="post" class="card" style="max-width: 40rem">
+    <div class="card-body">
+        <h2 class="h5">Appearance</h2>
+        <div class="mb-3">
+            <label class="form-label d-block">Theme</label>
+            @foreach (var theme in UserSettings.Themes)
+            {
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="Input.Theme" value="@theme" id="theme-@theme" />
+                    <label class="form-check-label" for="theme-@theme">
+                        @(theme == "auto" ? "Match my system" : char.ToUpper(theme[0]) + theme[1..])
+                    </label>
+                </div>
+            }
+        </div>
+        <div class="mb-4">
+            <label class="form-label d-block">Accent color</label>
+            @foreach (var accent in UserSettings.Accents)
+            {
+                <input type="radio" class="btn-check" asp-for="Input.Accent" value="@accent" id="accent-@accent" />
+                <label class="btn btn-outline-@(accent == "dark" ? "secondary" : accent) mb-1" for="accent-@accent">@(char.ToUpper(accent[0]) + accent[1..])</label>
+            }
+        </div>
+
+        <h2 class="h5">Dates and times</h2>
+        <div class="mb-3">
+            <label asp-for="Input.DateFormat" class="form-label">Date format</label>
+            <select asp-for="Input.DateFormat" class="form-select"
+                    asp-items="@(new SelectList(UserSettings.DateFormats, "Key", "Value"))"></select>
+        </div>
+        <div class="form-check form-switch mb-4">
+            <input class="form-check-input" type="checkbox" asp-for="Input.TwentyFourHourClock" />
+            <label class="form-check-label" asp-for="Input.TwentyFourHourClock">Use a 24-hour clock</label>
+        </div>
+
+        <h2 class="h5">Behavior</h2>
+        <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" asp-for="Input.ConfirmDeletes" />
+            <label class="form-check-label" asp-for="Input.ConfirmDeletes">Ask for confirmation before deleting</label>
+        </div>
+        <div class="form-check form-switch mb-4">
+            <input class="form-check-input" type="checkbox" asp-for="Input.AdminMode" />
+            <label class="form-check-label" asp-for="Input.AdminMode">
+                Administrator mode <span class="text-body-secondary">(unlocks the Administration page for editing membership plans)</span>
+            </label>
+        </div>
+
+        <button type="submit" class="btn btn-@S.Accent">Save settings</button>
+        <button type="submit" asp-page-handler="Reset" class="btn btn-outline-secondary">Reset to defaults</button>
+    </div>
+</form>

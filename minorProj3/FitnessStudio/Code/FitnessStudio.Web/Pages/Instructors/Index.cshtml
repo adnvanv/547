@@ -1,0 +1,43 @@
+@page
+@model FitnessStudio.Web.Pages.Instructors.IndexModel
+@{
+    ViewData["Title"] = "Instructors";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="mb-0">Instructors</h1>
+    <a asp-page="Edit" class="btn btn-@S.Accent">+ Add instructor</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover align-middle">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Specialty</th>
+                <th>Hired</th>
+                <th>Classes</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model.Instructors)
+            {
+                <tr>
+                    <td>@i.InstructorId</td>
+                    <td>@i.LastName, @i.FirstName</td>
+                    <td>@i.Email</td>
+                    <td>@i.Specialty</td>
+                    <td>@S.FormatDate(i.HireDate)</td>
+                    <td>@i.Classes.Count</td>
+                    <td class="actions">
+                        <a asp-page="Edit" asp-route-id="@i.InstructorId" class="btn btn-sm btn-outline-secondary">Edit</a>
+                        <partial name="_DeleteButton" model="@(("Delete", i.InstructorId))" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
