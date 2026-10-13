@@ -12,7 +12,7 @@ An ASP.NET Core Razor Pages web application (.NET 10) for a small gym, backed by
 FitnessStudio/
   Scripts/01_FitnessStudioDB_DDL.sql   creates FitnessStudioDB (MembershipPlans, Members, Instructors, FitnessClasses)
   Scripts/02_FitnessStudioDB_DML.sql   sample data (48 rows)
-  Code/FitnessStudio.slnx
+  Code/FitnessStudio.sln
   Code/FitnessStudio.Data/             data layer (EF Core entities, DbContext, services)
   Code/FitnessStudio.Web/              Razor Pages user interface
 Documentation/
@@ -23,6 +23,6 @@ Documentation/
 ## Running
 
 1. Run `FitnessStudio/Scripts/01_FitnessStudioDB_DDL.sql`, then `02_FitnessStudioDB_DML.sql`, against `.\SQLEXPRESS`.
-2. From `FitnessStudio/Code`, run `dotnet run --project FitnessStudio.Web` (or open `FitnessStudio.slnx` in Visual Studio). NuGet packages are restored automatically.
+2. From `FitnessStudio/Code`, run `dotnet run --project FitnessStudio.Web` (or open `FitnessStudio.sln` in Visual Studio). NuGet packages are restored automatically.
 3. Browse to http://localhost:5139.
 4. If your SQL Server instance has a different name, change `ConnectionStrings:FitnessStudioDB` in `FitnessStudio.Web/appsettings.json`.
