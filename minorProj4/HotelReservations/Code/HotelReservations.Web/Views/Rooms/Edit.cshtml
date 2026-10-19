@@ -1,0 +1,61 @@
+@model Room
+@{
+    var isNew = Model.RoomId == 0;
+    ViewData["Title"] = S.T(isNew ? "Add room" : "Edit room");
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post" asp-action="Edit" class="card" style="max-width: 40rem">
+    <div class="card-body">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+        <input type="hidden" asp-for="RoomId" />
+
+        <div class="row g-3">
+            <div class="col-sm-6">
+                <label asp-for="RoomNumber" class="form-label">@S.T("Room number")</label>
+                <input asp-for="RoomNumber" class="form-control" />
+                <span asp-validation-for="RoomNumber" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6">
+                <label asp-for="Floor" class="form-label">@S.T("Floor")</label>
+                <input asp-for="Floor" class="form-control" />
+                <span asp-validation-for="Floor" class="text-danger"></span>
+            </div>
+            <div class="col-12">
+                <label asp-for="RoomTypeId" class="form-label">@S.T("Room type")</label>
+                <select asp-for="RoomTypeId" asp-items="ViewBag.RoomTypes" class="form-select">
+                    <option value="0">@S.T("-- choose --")</option>
+                </select>
+                <span asp-validation-for="RoomTypeId" class="text-danger"></span>
+                <div class="form-text">@S.T("Room types and prices are managed on the Administration page.")</div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" asp-for="IsSmoking" />
+                    <label class="form-check-label" asp-for="IsSmoking">@S.T("Smoking room")</label>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" asp-for="IsOutOfService" />
+                    <label class="form-check-label" asp-for="IsOutOfService">@S.T("Out of service")</label>
+                </div>
+            </div>
+            <div class="col-12">
+                <label asp-for="Notes" class="form-label">@S.T("Notes")</label>
+                <textarea asp-for="Notes" class="form-control" rows="2"></textarea>
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-@S.Accent">@S.T(isNew ? "Add room" : "Save changes")</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">@S.T("Cancel")</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

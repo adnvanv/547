@@ -1,0 +1,56 @@
+@model List<RoomType>
+@{
+    ViewData["Title"] = S.T("Administration");
+}
+
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <h1 class="mb-0">@S.T("Administration: room types")</h1>
+    <a asp-action="Edit" class="btn btn-@S.Accent">+ @S.T("Add room type")</a>
+</div>
+<p class="text-body-secondary">
+    @S.T("Room types and nightly rates can only be changed here, in administrator mode. Inactive types are hidden from the room form but kept for rooms that already use them.")
+</p>
+
+<div class="table-responsive">
+    <table class="table table-hover align-middle">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>@S.T("Room type")</th>
+                <th>@S.T("Nightly rate")</th>
+                <th>@S.T("Sleeps")</th>
+                <th>@S.T("Description")</th>
+                <th>@S.T("Status")</th>
+                <th>@S.T("Rooms")</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var t in Model)
+            {
+                <tr>
+                    <td>@t.RoomTypeId</td>
+                    <td class="fw-semibold">@t.Name</td>
+                    <td>@t.NightlyRate.ToString("C")</td>
+                    <td>@t.MaxOccupancy</td>
+                    <td class="small">@t.Description</td>
+                    <td>
+                        @if (t.IsActive)
+                        {
+                            <span class="badge text-bg-success">@S.T("Active")</span>
+                        }
+                        else
+                        {
+                            <span class="badge text-bg-secondary">@S.T("Inactive")</span>
+                        }
+                    </td>
+                    <td>@t.RoomCount</td>
+                    <td class="actions">
+                        <a asp-action="Edit" asp-route-id="@t.RoomTypeId" class="btn btn-sm btn-outline-secondary">@S.T("Edit")</a>
+                        <partial name="_DeleteButton" model="t.RoomTypeId" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,12 @@
+@model int
+@* With "Confirm before deleting" on (Settings), go to the confirmation view; otherwise delete right away. *@
+@if (S.ConfirmDeletes)
+{
+    <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@Model">@S.T("Delete")</a>
+}
+else
+{
+    <form method="post" asp-action="Delete" asp-route-id="@Model" class="d-inline">
+        <button type="submit" class="btn btn-sm btn-outline-danger">@S.T("Delete")</button>
+    </form>
+}

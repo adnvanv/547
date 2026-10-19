@@ -1,0 +1,11 @@
+@model string
+@{
+    var color = Model switch
+    {
+        "Booked" => "primary",
+        "Checked In" => "success",
+        "Checked Out" => "secondary",
+        _ => "danger",
+    };
+}
+<span class="badge text-bg-@color">@S.T(Model)</span>

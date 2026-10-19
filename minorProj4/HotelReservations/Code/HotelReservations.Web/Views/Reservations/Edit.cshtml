@@ -1,0 +1,70 @@
+@model Reservation
+@{
+    var isNew = Model.ReservationId == 0;
+    ViewData["Title"] = S.T(isNew ? "New reservation" : "Edit reservation");
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post" asp-action="Edit" class="card" style="max-width: 44rem">
+    <div class="card-body">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+        <input type="hidden" asp-for="ReservationId" />
+
+        @if (!isNew)
+        {
+            <p class="text-body-secondary">@S.T("Reservation") #@Model.ReservationId &middot; @Model.Nights @S.T("night(s)") &middot; @Model.TotalCost.ToString("C")</p>
+        }
+
+        <div class="row g-3">
+            <div class="col-12">
+                <label asp-for="GuestId" class="form-label">@S.T("Guest")</label>
+                <select asp-for="GuestId" asp-items="ViewBag.Guests" class="form-select">
+                    <option value="0">@S.T("-- choose --")</option>
+                </select>
+                <span asp-validation-for="GuestId" class="text-danger"></span>
+            </div>
+            <div class="col-12">
+                <label asp-for="RoomId" class="form-label">@S.T("Room")</label>
+                <select asp-for="RoomId" asp-items="ViewBag.Rooms" class="form-select">
+                    <option value="0">@S.T("-- choose --")</option>
+                </select>
+                <span asp-validation-for="RoomId" class="text-danger"></span>
+            </div>
+            <div class="col-sm-4">
+                <label asp-for="CheckInDate" class="form-label">@S.T("Check-in")</label>
+                <input asp-for="CheckInDate" class="form-control" />
+                <span asp-validation-for="CheckInDate" class="text-danger"></span>
+            </div>
+            <div class="col-sm-4">
+                <label asp-for="CheckOutDate" class="form-label">@S.T("Check-out")</label>
+                <input asp-for="CheckOutDate" class="form-control" />
+                <span asp-validation-for="CheckOutDate" class="text-danger"></span>
+            </div>
+            <div class="col-sm-4">
+                <label asp-for="NumberOfGuests" class="form-label">@S.T("Guests")</label>
+                <input asp-for="NumberOfGuests" class="form-control" />
+                <span asp-validation-for="NumberOfGuests" class="text-danger"></span>
+            </div>
+            <div class="col-sm-4">
+                <label asp-for="Status" class="form-label">@S.T("Status")</label>
+                <select asp-for="Status" asp-items="ViewBag.Statuses" class="form-select"></select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="col-sm-8">
+                <label asp-for="Notes" class="form-label">@S.T("Notes")</label>
+                <input asp-for="Notes" class="form-control" />
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-@S.Accent">@S.T(isNew ? "Book reservation" : "Save changes")</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">@S.T("Cancel")</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

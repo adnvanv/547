@@ -1,0 +1,14 @@
+@{
+    ViewData["Title"] = S.T("Administration");
+}
+
+<div class="card border-warning mx-auto mt-4" style="max-width: 36rem">
+    <div class="card-body text-center p-4">
+        <div class="display-5 mb-2">&#128274;</div>
+        <h1 class="h3">@S.T("Administration is locked")</h1>
+        <p class="text-body-secondary">
+            @S.T("Room types and nightly rates can only be changed by an administrator. Turn on Administrator mode on the Settings page to continue.")
+        </p>
+        <a asp-controller="Settings" asp-action="Index" class="btn btn-@S.Accent">@S.T("Go to Settings")</a>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="@S.Language" data-bs-theme="@(S.Theme == "dark" ? "dark" : "light")" data-theme-setting="@S.Theme">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Lakeside Hotel</title>
+    @if (S.Theme == "auto")
+    {
+        <script>
+            // "Auto" theme follows the operating system's light/dark preference.
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches)
+                document.documentElement.setAttribute('data-bs-theme', 'dark');
+        </script>
+    }
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/HotelReservations.Web.styles.css" asp-append-version="true" />
+</head>
+<body>
+    @{
+        var controller = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+        string Active(string name) => controller == name ? "active" : "";
+    }
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-@S.Accent mb-4 shadow-sm" data-bs-theme="dark">
+            <div class="container">
+                <a class="navbar-brand fw-semibold" asp-controller="Home" asp-action="Index">&#127976; Lakeside Hotel</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item"><a class="nav-link @Active("Home")" asp-controller="Home" asp-action="Index">@S.T("Home")</a></li>
+                        <li class="nav-item"><a class="nav-link @Active("Guests")" asp-controller="Guests" asp-action="Index">@S.T("Guests")</a></li>
+                        <li class="nav-item"><a class="nav-link @Active("Rooms")" asp-controller="Rooms" asp-action="Index">@S.T("Rooms")</a></li>
+                        <li class="nav-item"><a class="nav-link @Active("Reservations")" asp-controller="Reservations" asp-action="Index">@S.T("Reservations")</a></li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link @Active("Admin")" asp-controller="Admin" asp-action="Index">
+                                @S.T("Administration")
+                                @if (S.AdminMode)
+                                {
+                                    <span class="badge text-bg-light ms-1">@S.T("Admin mode")</span>
+                                }
+                            </a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link @Active("Settings")" asp-controller="Settings" asp-action="Index">@S.T("Settings")</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @if (TempData["StatusMessage"] is string status)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @status
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @if (TempData["ErrorMessage"] is string error)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @error
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-body-secondary">
+        <div class="container">
+            &copy; 2026 Lakeside Hotel &middot; Minor Project 4 (ASP.NET Core MVC)
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

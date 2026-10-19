@@ -1,0 +1,90 @@
+@model GuestSearchViewModel
+@{
+    ViewData["Title"] = S.T("Guests");
+    var fields = new SelectList(new[]
+    {
+        new { Value = GuestSearchField.Any, Text = S.T("Any field (or guest ID)") },
+        new { Value = GuestSearchField.FirstName, Text = S.T("First name") },
+        new { Value = GuestSearchField.LastName, Text = S.T("Last name") },
+        new { Value = GuestSearchField.Email, Text = S.T("Email") },
+        new { Value = GuestSearchField.City, Text = S.T("City") },
+    }, "Value", "Text", Model.Field);
+    var modes = new SelectList(new[]
+    {
+        new { Value = MatchMode.Contains, Text = S.T("contains") },
+        new { Value = MatchMode.StartsWith, Text = S.T("starts with") },
+        new { Value = MatchMode.EndsWith, Text = S.T("ends with") },
+    }, "Value", "Text", Model.Match);
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="mb-0">@S.T("Guests")</h1>
+    <a asp-action="Edit" class="btn btn-@S.Accent">+ @S.T("Add guest")</a>
+</div>
+
+<form method="get" asp-action="Index" class="card card-body mb-3">
+    <div class="row g-2 align-items-end">
+        <div class="col-md-3">
+            <label for="field" class="form-label">@S.T("Search in")</label>
+            <select id="field" name="field" asp-items="fields" class="form-select"></select>
+        </div>
+        <div class="col-md-2">
+            <label for="match" class="form-label">@S.T("Match")</label>
+            <select id="match" name="match" asp-items="modes" class="form-select"></select>
+        </div>
+        <div class="col-md-4">
+            <label for="search" class="form-label">@S.T("Search text")</label>
+            <input id="search" name="search" value="@Model.Search" class="form-control" placeholder="e.g. Garcia, emma, Chicago" />
+        </div>
+        <div class="col-md-3 d-flex gap-2">
+            <button type="submit" class="btn btn-@S.Accent flex-fill">@S.T("Search")</button>
+            <a asp-action="Index" class="btn btn-outline-secondary flex-fill">@S.T("Clear")</a>
+        </div>
+    </div>
+</form>
+
+<p class="text-body-secondary">
+    @if (Model.IsSearching)
+    {
+        @:@Model.Results.Count @S.T("guest(s) found for") "<strong>@Model.Search</strong>".
+    }
+    else
+    {
+        @:@S.T("Showing all") @Model.Results.Count @S.T("guests").
+    }
+</p>
+
+<div class="table-responsive">
+    <table class="table table-hover align-middle">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>@S.T("Name")</th>
+                <th>@S.T("Email")</th>
+                <th>@S.T("Phone")</th>
+                <th>@S.T("City")</th>
+                <th>@S.T("Country")</th>
+                <th>@S.T("Stays")</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var g in Model.Results)
+            {
+                <tr>
+                    <td>@g.GuestId</td>
+                    <td><a asp-action="Details" asp-route-id="@g.GuestId">@g.LastName, @g.FirstName</a></td>
+                    <td>@g.Email</td>
+                    <td>@g.Phone</td>
+                    <td>@g.City</td>
+                    <td>@g.Country</td>
+                    <td>@g.ReservationCount</td>
+                    <td class="actions">
+                        <a asp-action="Edit" asp-route-id="@g.GuestId" class="btn btn-sm btn-outline-secondary">@S.T("Edit")</a>
+                        <partial name="_DeleteButton" model="g.GuestId" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

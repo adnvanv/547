@@ -1,0 +1,49 @@
+﻿@model DashboardViewModel
+@{
+    ViewData["Title"] = S.T("Home");
+    var cards = new[]
+    {
+        (S.T("Guests"), Model.GuestCount.ToString(), "Guests"),
+        (S.T("Rooms in service"), $"{Model.AvailableRooms} / {Model.RoomCount}", "Rooms"),
+        (S.T("Occupied tonight"), Model.OccupiedTonight.ToString(), "Reservations"),
+        (S.T("Active room types"), Model.RoomTypeCount.ToString(), "Admin"),
+    };
+}
+
+<h1 class="mb-1">@S.T("Welcome to Lakeside Hotel")</h1>
+<p class="text-body-secondary mb-4">@S.T("Manage guests, rooms and reservations.") &middot; @S.FormatDate(Model.Today)</p>
+
+<div class="row g-3 mb-4">
+    @foreach (var (label, value, target) in cards)
+    {
+        <div class="col-6 col-lg-3">
+            <a asp-controller="@target" asp-action="Index" class="card stat-card h-100 text-decoration-none">
+                <div class="card-body">
+                    <div class="text-body-secondary">@label</div>
+                    <div class="display-6 text-@S.Accent">@value</div>
+                </div>
+            </a>
+        </div>
+    }
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <h2 class="h4 mb-0">@S.T("Upcoming arrivals")</h2>
+    <a asp-controller="Reservations" asp-action="Edit" class="btn btn-sm btn-@S.Accent">+ @S.T("New reservation")</a>
+</div>
+@if (Model.Arrivals.Count == 0)
+{
+    <p class="text-body-secondary">@S.T("No upcoming arrivals.")</p>
+}
+else
+{
+    <ul class="list-group">
+        @foreach (var r in Model.Arrivals)
+        {
+            <li class="list-group-item d-flex justify-content-between">
+                <span><strong>@r.GuestName</strong> &middot; @S.T("Room") @r.RoomNumber (@r.RoomTypeName)</span>
+                <span>@S.FormatDate(r.CheckInDate) &rarr; @S.FormatDate(r.CheckOutDate)</span>
+            </li>
+        }
+    </ul>
+}

@@ -1,0 +1,59 @@
+@model List<Room>
+@{
+    ViewData["Title"] = S.T("Rooms");
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="mb-0">@S.T("Rooms")</h1>
+    <a asp-action="Edit" class="btn btn-@S.Accent">+ @S.T("Add room")</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover align-middle">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>@S.T("Room")</th>
+                <th>@S.T("Floor")</th>
+                <th>@S.T("Room type")</th>
+                <th>@S.T("Nightly rate")</th>
+                <th>@S.T("Sleeps")</th>
+                <th>@S.T("Status")</th>
+                <th>@S.T("Notes")</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model)
+            {
+                <tr class="@(r.IsOutOfService ? "table-secondary" : "")">
+                    <td>@r.RoomId</td>
+                    <td class="fw-semibold">@r.RoomNumber</td>
+                    <td>@r.Floor</td>
+                    <td>@r.RoomTypeName</td>
+                    <td>@r.NightlyRate.ToString("C")</td>
+                    <td>@r.MaxOccupancy</td>
+                    <td>
+                        @if (r.IsOutOfService)
+                        {
+                            <span class="badge text-bg-warning">@S.T("Out of service")</span>
+                        }
+                        else
+                        {
+                            <span class="badge text-bg-success">@S.T("Available")</span>
+                        }
+                        @if (r.IsSmoking)
+                        {
+                            <span class="badge text-bg-dark">@S.T("Smoking")</span>
+                        }
+                    </td>
+                    <td class="small">@r.Notes</td>
+                    <td class="actions">
+                        <a asp-action="Edit" asp-route-id="@r.RoomId" class="btn btn-sm btn-outline-secondary">@S.T("Edit")</a>
+                        <partial name="_DeleteButton" model="r.RoomId" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

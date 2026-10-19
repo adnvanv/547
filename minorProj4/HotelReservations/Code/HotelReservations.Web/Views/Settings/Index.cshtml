@@ -1,0 +1,64 @@
+@model UserSettings
+@{
+    ViewData["Title"] = S.T("Settings");
+}
+
+<h1>@S.T("Settings")</h1>
+<p class="text-body-secondary">@S.T("These preferences are saved in this browser.")</p>
+
+<form method="post" asp-action="Index" class="card" style="max-width: 40rem">
+    <div class="card-body">
+        <h2 class="h5">@S.T("Appearance")</h2>
+        <div class="mb-3">
+            <label class="form-label d-block">@S.T("Theme")</label>
+            @foreach (var theme in UserSettings.Themes)
+            {
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="Theme" value="@theme" id="theme-@theme" />
+                    <label class="form-check-label" for="theme-@theme">
+                        @S.T(theme == "auto" ? "Match my system" : char.ToUpper(theme[0]) + theme[1..])
+                    </label>
+                </div>
+            }
+        </div>
+        <div class="mb-4">
+            <label class="form-label d-block">@S.T("Accent color")</label>
+            @foreach (var accent in UserSettings.Accents)
+            {
+                <input type="radio" class="btn-check" asp-for="Accent" value="@accent" id="accent-@accent" />
+                <label class="btn btn-outline-@(accent == "dark" ? "secondary" : accent) mb-1" for="accent-@accent">@S.T(char.ToUpper(accent[0]) + accent[1..])</label>
+            }
+        </div>
+
+        <h2 class="h5">@S.T("Language and dates")</h2>
+        <div class="mb-3">
+            <label asp-for="Language" class="form-label">@S.T("Language")</label>
+            <select asp-for="Language" class="form-select"
+                    asp-items="@(new SelectList(UserSettings.Languages, "Key", "Value"))"></select>
+        </div>
+        <div class="mb-4">
+            <label asp-for="DateFormat" class="form-label">@S.T("Date format")</label>
+            <select asp-for="DateFormat" class="form-select"
+                    asp-items="@(new SelectList(UserSettings.DateFormats, "Key", "Value"))"></select>
+        </div>
+
+        <h2 class="h5">@S.T("Behavior")</h2>
+        <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" asp-for="ShowCancelled" />
+            <label class="form-check-label" asp-for="ShowCancelled">@S.T("Show cancelled reservations")</label>
+        </div>
+        <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" asp-for="ConfirmDeletes" />
+            <label class="form-check-label" asp-for="ConfirmDeletes">@S.T("Ask for confirmation before deleting")</label>
+        </div>
+        <div class="form-check form-switch mb-4">
+            <input class="form-check-input" type="checkbox" asp-for="AdminMode" />
+            <label class="form-check-label" asp-for="AdminMode">
+                @S.T("Administrator mode") <span class="text-body-secondary">(@S.T("unlocks the Administration page for editing room types"))</span>
+            </label>
+        </div>
+
+        <button type="submit" class="btn btn-@S.Accent">@S.T("Save settings")</button>
+        <button type="submit" asp-action="Reset" class="btn btn-outline-secondary">@S.T("Reset to defaults")</button>
+    </div>
+</form>

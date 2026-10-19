@@ -1,0 +1,52 @@
+@model Guest
+@{
+    ViewData["Title"] = Model.FullName;
+    var stays = (List<Reservation>)ViewBag.Reservations;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="mb-0">@Model.FullName</h1>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.GuestId" class="btn btn-outline-secondary">@S.T("Edit")</a>
+        <a asp-controller="Reservations" asp-action="Edit" asp-route-guestId="@Model.GuestId" class="btn btn-@S.Accent">+ @S.T("New reservation")</a>
+    </div>
+</div>
+
+<div class="card mb-4" style="max-width: 40rem">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-4">@S.T("Guest ID")</dt><dd class="col-sm-8">@Model.GuestId</dd>
+            <dt class="col-sm-4">@S.T("Email")</dt><dd class="col-sm-8">@Model.Email</dd>
+            <dt class="col-sm-4">@S.T("Phone")</dt><dd class="col-sm-8">@Model.Phone</dd>
+            <dt class="col-sm-4">@S.T("City")</dt><dd class="col-sm-8">@Model.City, @Model.Country</dd>
+            <dt class="col-sm-4">@S.T("Guest since")</dt><dd class="col-sm-8">@S.FormatDate(Model.CreatedOn)</dd>
+        </dl>
+    </div>
+</div>
+
+<h2 class="h4">@S.T("Reservations")</h2>
+@if (stays.Count == 0)
+{
+    <p class="text-body-secondary">@S.T("No reservations yet.")</p>
+}
+else
+{
+    <table class="table align-middle">
+        <thead>
+            <tr><th>#</th><th>@S.T("Room")</th><th>@S.T("Check-in")</th><th>@S.T("Check-out")</th><th>@S.T("Status")</th><th class="text-end">@S.T("Total")</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var r in stays)
+            {
+                <tr>
+                    <td><a asp-controller="Reservations" asp-action="Edit" asp-route-id="@r.ReservationId">@r.ReservationId</a></td>
+                    <td>@r.RoomNumber (@r.RoomTypeName)</td>
+                    <td>@S.FormatDate(r.CheckInDate)</td>
+                    <td>@S.FormatDate(r.CheckOutDate)</td>
+                    <td><partial name="_StatusBadge" model="r.Status" /></td>
+                    <td class="text-end">@r.TotalCost.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

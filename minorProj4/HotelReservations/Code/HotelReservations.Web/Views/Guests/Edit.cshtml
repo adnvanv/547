@@ -1,0 +1,66 @@
+@model Guest
+@{
+    var isNew = Model.GuestId == 0;
+    ViewData["Title"] = S.T(isNew ? "Add guest" : "Edit guest");
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post" asp-action="Edit" class="card" style="max-width: 40rem">
+    <div class="card-body">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+        <input type="hidden" asp-for="GuestId" />
+
+        @if (!isNew)
+        {
+            <p class="text-body-secondary">@S.T("Guest ID"): @Model.GuestId</p>
+        }
+
+        <div class="row g-3">
+            <div class="col-sm-6">
+                <label asp-for="FirstName" class="form-label">@S.T("First name")</label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6">
+                <label asp-for="LastName" class="form-label">@S.T("Last name")</label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="col-sm-7">
+                <label asp-for="Email" class="form-label">@S.T("Email")</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="col-sm-5">
+                <label asp-for="Phone" class="form-label">@S.T("Phone")</label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="col-sm-5">
+                <label asp-for="City" class="form-label">@S.T("City")</label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="col-sm-4">
+                <label asp-for="Country" class="form-label">@S.T("Country")</label>
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="col-sm-3">
+                <label asp-for="CreatedOn" class="form-label">@S.T("Guest since")</label>
+                <input asp-for="CreatedOn" class="form-control" />
+                <span asp-validation-for="CreatedOn" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-@S.Accent">@S.T(isNew ? "Add guest" : "Save changes")</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">@S.T("Cancel")</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
