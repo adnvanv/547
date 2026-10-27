@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hotel Reservations API Client</title>
+    <link rel="stylesheet" href="site.css" />
+</head>
+<body>
+    <header>
+        <h1>Hotel Reservations <span>API test client</span></h1>
+        <label class="api">
+            API base URL
+            <input id="apiBase" value="http://localhost:5310" />
+        </label>
+    </header>
+
+    <nav id="tabs">
+        <button data-resource="guests" class="active">Guests</button>
+        <button data-resource="rooms">Rooms</button>
+        <button data-resource="roomtypes">Room types</button>
+        <button data-resource="reservations">Reservations</button>
+    </nav>
+
+    <section class="toolbar">
+        <button id="getAll">Get all</button>
+        <span class="divider"></span>
+        <label>ID <input id="recordId" type="number" min="1" value="1" /></label>
+        <button id="getById">Get by ID</button>
+    </section>
+
+    <p id="status" class="status">Choose a table, then click <b>Get all</b> or <b>Get by ID</b>.</p>
+
+    <div id="result"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

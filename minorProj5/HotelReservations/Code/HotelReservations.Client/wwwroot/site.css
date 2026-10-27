@@ -1,0 +1,60 @@
+:root {
+    --accent: #1f5f8b;
+    --border: #d5dbe1;
+    --muted: #5f6b76;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    padding: 0 24px 32px;
+    font: 15px/1.45 "Segoe UI", system-ui, sans-serif;
+    color: #1d2329;
+    background: #f6f8fa;
+}
+
+header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 0 14px;
+}
+
+h1 { margin: 0; font-size: 24px; color: var(--accent); }
+h1 span { font-weight: 400; color: var(--muted); font-size: 18px; margin-left: 6px; }
+
+label { font-size: 13px; color: var(--muted); }
+input { font: inherit; padding: 5px 8px; border: 1px solid var(--border); border-radius: 4px; }
+.api input { width: 230px; margin-left: 6px; }
+#recordId { width: 80px; margin-left: 4px; }
+
+button {
+    font: inherit;
+    padding: 6px 14px;
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    background: var(--accent);
+    color: #fff;
+    cursor: pointer;
+}
+
+#tabs { display: flex; gap: 4px; border-bottom: 2px solid var(--accent); }
+#tabs button { background: #fff; color: var(--accent); border-bottom: none; border-radius: 4px 4px 0 0; }
+#tabs button.active { background: var(--accent); color: #fff; }
+
+.toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 14px 0 8px; }
+.divider { width: 1px; height: 26px; background: var(--border); margin: 0 6px; }
+
+.status { margin: 6px 0 12px; padding: 8px 12px; border-left: 4px solid var(--border); background: #fff; font-family: Consolas, monospace; font-size: 13px; }
+.status.ok { border-color: #2e8540; }
+.status.error { border-color: #c62828; color: #8e1c1c; }
+
+table { border-collapse: collapse; background: #fff; width: 100%; font-size: 14px; }
+th, td { border: 1px solid var(--border); padding: 5px 9px; text-align: left; }
+th { background: #e8eef3; }
+tbody tr:nth-child(even) { background: #fafbfc; }
+table.record { width: auto; min-width: 420px; }
+table.record td:first-child { font-weight: 600; background: #e8eef3; }
