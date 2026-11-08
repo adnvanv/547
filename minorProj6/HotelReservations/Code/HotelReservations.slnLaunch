@@ -1,0 +1,36 @@
+[
+  {
+    "Name": "Functions + API + Client",
+    "Projects": [
+      {
+        "Path": "HotelReservations.Functions\\HotelReservations.Functions.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "HotelReservations.Api\\HotelReservations.Api.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
+      },
+      {
+        "Path": "HotelReservations.Client\\HotelReservations.Client.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
+      }
+    ]
+  },
+  {
+    "Name": "API + Client",
+    "Projects": [
+      {
+        "Path": "HotelReservations.Api\\HotelReservations.Api.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
+      },
+      {
+        "Path": "HotelReservations.Client\\HotelReservations.Client.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
+      }
+    ]
+  }
+]
