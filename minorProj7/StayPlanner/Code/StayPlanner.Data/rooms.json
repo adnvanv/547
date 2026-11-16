@@ -1,0 +1,9 @@
+[
+  { "id": 1, "number": "101", "type": "Standard Queen", "beds": 1, "maxGuests": 2, "nightlyRate": 119.00, "floor": 1 },
+  { "id": 2, "number": "102", "type": "Standard Double", "beds": 2, "maxGuests": 4, "nightlyRate": 139.00, "floor": 1 },
+  { "id": 3, "number": "201", "type": "Deluxe King", "beds": 1, "maxGuests": 2, "nightlyRate": 169.00, "floor": 2 },
+  { "id": 4, "number": "202", "type": "Deluxe Double", "beds": 2, "maxGuests": 4, "nightlyRate": 189.00, "floor": 2 },
+  { "id": 5, "number": "301", "type": "Junior Suite", "beds": 1, "maxGuests": 3, "nightlyRate": 249.00, "floor": 3 },
+  { "id": 6, "number": "302", "type": "Family Suite", "beds": 3, "maxGuests": 6, "nightlyRate": 299.00, "floor": 3 },
+  { "id": 7, "number": "401", "type": "Penthouse", "beds": 2, "maxGuests": 4, "nightlyRate": 449.00, "floor": 4 }
+]
